@@ -18,6 +18,11 @@ Read, in this order:
 4. `git log --oneline -10` — what happened recently
 5. `git status` — uncommitted changes mean the last session probably stopped
    mid-task; read the changed files to understand what was in flight
+6. If a GitHub remote exists and `gh` works: `gh run list --limit 1` (any error
+   → skip silently). A FAILED latest run belongs in the report below — and gets
+   fixed first, following the "If GitHub shows a red ✗" section of
+   `/ship-project` (plain English: quality failure → fix + save; secret finding
+   → value into `.env`, tell Marco to swap the key, offer history cleaning).
 
 ## Report back, then confirm
 
@@ -34,6 +39,9 @@ want to work on something else?"
 
 Once confirmed:
 
+- First run `bash scripts/install-hooks.sh` once (quiet, safe to repeat) — this
+  re-activates the secret scan if the project landed on this computer without it
+  (fresh download, second machine).
 - If there are uncommitted changes: finish or tidy the in-flight work first, get
   lint/typecheck green, then commit it properly. Never discard the user's work
   unless they explicitly ask.

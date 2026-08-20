@@ -41,5 +41,18 @@ short "where we left off" summary and can carry straight on.
 **How do I get GitHub access?**
 Send Marco this message on Slack: "Please invite `<your-github-username>` to the
 Aampere GitHub org." (No GitHub account yet? Create a free one at github.com with
-your work email first.) Once he confirms, run `/ship-project` — done. Until then,
-everything simply stays saved on your computer.
+your work email first.) When his invitation arrives, **accept it** — check your
+email or the yellow banner on github.com — then run `/ship-project`. Done. Until
+then, everything simply stays saved on your computer.
+
+**Marco says he invited me, but /ship-project still says I have no access?**
+The invitation has to be accepted by you: look for GitHub's email (or the yellow
+banner when you visit github.com), click **Accept**, then run `/ship-project`
+again. Note: invitations expire after 7 days — if it's been longer, ask Marco to
+send a new one.
+
+**GitHub emailed me "Some checks were not successful" / I see a red ✗. What now?**
+Nothing is lost and nothing on your computer is broken. Open the project folder
+in Claude Code and say: **"GitHub shows a red X — check and fix it."** If the
+email or page mentions a password or API key, also tell Marco which one — that
+key needs to be swapped. Never try to fix a red ✗ by deleting things on GitHub.

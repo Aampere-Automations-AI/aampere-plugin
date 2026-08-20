@@ -37,7 +37,9 @@ Do not proceed in that case.
    checked off when the group's file is fully done — plus a note at the top that
    detailed work now lives in `docs/tasks/`. Don't keep two diverging checklists.
 
-4. Commit (`docs: split roadmap into task groups`) — push if a remote exists (no
+4. Run `bash scripts/install-hooks.sh` once (quiet, safe to repeat) so the
+   secret scan is active even on a fresh copy of the project, then commit
+   (`docs: split roadmap into task groups`) — push if a remote exists (no
    remote → one line: "Not backed up to GitHub yet — run /ship-project whenever you want
    that").
 

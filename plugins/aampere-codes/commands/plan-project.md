@@ -36,7 +36,9 @@ non-technical user. Simple English, no jargon. Load the `vibe-coding-standards` 
    commit if nothing changed.)
 
 5. Record that planning happened: add/update `"plannedAt": "<YYYY-MM-DD>"` in
-   `.aampere.json`. Then commit (`docs: flesh out roadmap`) — and push if the
+   `.aampere.json`. Before committing, run `bash scripts/install-hooks.sh` once
+   (quiet, safe to repeat) so the secret scan is active even on a fresh copy of
+   the project. Then commit (`docs: flesh out roadmap`) — and push if the
    project has a GitHub remote. If there is no remote, add one line: "Not backed
    up to GitHub yet — run /ship-project whenever you want that."
 

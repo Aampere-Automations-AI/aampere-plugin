@@ -39,6 +39,22 @@ jobs:
           fi
           ./betterleaks git --no-banner --redact -v "$@" .
 
+      - name: Explain a red result in plain English
+        if: failure()
+        run: |
+          {
+            echo "## 🔴 The secret check found something"
+            echo ""
+            echo "Something in this project's saved history looks like a password or API key."
+            echo "Nothing is lost and nothing is broken — but that key must be treated as no longer secret."
+            echo ""
+            echo "**What to do (takes ~10 minutes):**"
+            echo "1. Open the project folder in Claude Code and say: *\"GitHub shows a red X — check and fix it.\"*"
+            echo "2. Tell Marco which key it is, so he can swap it for a new one."
+            echo ""
+            echo "Please don't delete anything on GitHub yourself — the two steps above are the whole fix."
+          } >> "$GITHUB_STEP_SUMMARY"
+
   quality:
     name: Lint & typecheck
     runs-on: ubuntu-latest
@@ -55,3 +71,14 @@ jobs:
       - run: npm run lint
 
       - run: npm run typecheck
+
+      - name: Explain a red result in plain English
+        if: failure()
+        run: |
+          {
+            echo "## 🔴 A code-quality check failed"
+            echo ""
+            echo "Nothing is lost. Open the project folder in Claude Code and say:"
+            echo "*\"GitHub shows a red X — check and fix it.\"*"
+            echo "The next save will turn this green again."
+          } >> "$GITHUB_STEP_SUMMARY"
