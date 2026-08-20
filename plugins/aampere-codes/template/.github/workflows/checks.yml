@@ -1,0 +1,57 @@
+# Aampere standard checks — runs on every push.
+#
+# Job 1 (secret-scan): the server-side safety net. Even if someone bypasses
+#   the local pre-commit hook, this scan of the FULL git history turns the
+#   build red before a secret can go unnoticed.
+# Job 2 (quality): lint + typecheck with the standard Aampere config.
+name: Checks
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  secret-scan:
+    name: Secret scan (full history)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0 # full history — we scan every commit ever made
+
+      - name: Download betterleaks (pinned + checksum-verified)
+        run: |
+          curl -fsSL -o bl.tgz \
+            "https://github.com/betterleaks/betterleaks/releases/download/v1.7.4/betterleaks_1.7.4_linux_x64.tar.gz"
+          echo "9ed7739a39a26a2217f38726bff8a8f4fe079d3b21272caa7959823ccc444d96  bl.tgz" | sha256sum -c -
+          tar -xzf bl.tgz betterleaks
+
+      - name: Scan full git history
+        # Uses the Aampere rules committed in this repo (.betterleaks.toml,
+        # kept up to date automatically by the pre-commit hook) — no tokens
+        # or secrets needed. Falls back to built-in rules if absent.
+        run: |
+          set --
+          if [ -f .betterleaks.toml ]; then
+            set -- -c .betterleaks.toml
+          else
+            echo "::warning::.betterleaks.toml not found — scanning with built-in rules only."
+          fi
+          ./betterleaks git --no-banner --redact -v "$@" .
+
+  quality:
+    name: Lint & typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run lint
+
+      - run: npm run typecheck

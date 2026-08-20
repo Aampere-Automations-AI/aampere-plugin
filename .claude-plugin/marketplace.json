@@ -1,0 +1,16 @@
+{
+  "name": "aampere-codes",
+  "owner": {
+    "name": "Aampere"
+  },
+  "description": "Aampere Codes — Aampere's internal vibe-coding tools: safe project setup, effortless saving to GitHub, secret protection.",
+  "plugins": [
+    {
+      "name": "aampere-codes",
+      "source": "./plugins/aampere-codes",
+      "description": "Build internal Aampere apps safely: /start-project to begin, /ship-project to save to GitHub — with automatic secret scanning and shared vibe-coding standards.",
+      "version": "1.0.0",
+      "author": { "name": "Aampere" }
+    }
+  ]
+}
