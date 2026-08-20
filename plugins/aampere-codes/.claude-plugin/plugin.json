@@ -2,7 +2,7 @@
   "name": "aampere-codes",
   "displayName": "Aampere Codes",
   "description": "Build internal Aampere apps safely: /start-project to begin, /ship-project to save to GitHub — with automatic secret scanning and shared vibe-coding standards. Type /help-project if you're lost.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "Aampere"
   },

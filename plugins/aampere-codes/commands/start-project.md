@@ -34,13 +34,23 @@ Check quietly, fix inline, and NEVER block the project on any of this:
 
 1. `git --version` — if missing, guide installation in plain words
    (Windows: `winget install Git.Git`; macOS: `xcode-select --install` or Homebrew).
-2. `gh --version` — if missing, guide installation
+2. `node --version` and `npm --version` — the apps run on Node.js, so this IS
+   needed before building starts. If missing, install it for them, explaining in
+   plain words (Windows: `winget install OpenJS.NodeJS.LTS`; macOS:
+   `brew install node`, installing Homebrew first if needed). If the fresh
+   install isn't found afterwards, the PATH is stale: have them close and reopen
+   Claude Code, then run `/start-project` again — it resumes cleanly. Any Node
+   ≥ 20 that already works is fine; never upgrade a working Node unasked.
+   If the install fails or they defer it: still do the interview and scaffold
+   the files, skip the npm steps, and end with a plain note that the app can't
+   run yet — "ask me to finish the setup once Node is installed".
+3. `gh --version` — if missing, guide installation
    (Windows: `winget install GitHub.cli`; macOS: `brew install gh`).
-3. Git identity — if `git config user.name` or `git config user.email` is empty,
+4. Git identity — if `git config user.name` or `git config user.email` is empty,
    ask for their name and **work email** and set both with
    `git config --global user.name/user.email` (otherwise their first save fails
    with a confusing error).
-4. `gh auth status` — judge by the EXIT CODE, not the wording (a stale token can
+5. `gh auth status` — judge by the EXIT CODE, not the wording (a stale token can
    print misleading text). If not logged in, ask: "Do you have a GitHub account?"
    - **No account:** guide them to create a free account at github.com in their
      browser, **using their work email**. Do not wait for them — if they'd rather
